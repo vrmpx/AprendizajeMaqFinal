@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/W32TeX) (format=pdflatex 2013.5.6)  6 DEC 2013 01:10
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/W32TeX) (format=pdflatex 2013.5.6)  8 DEC 2013 01:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -692,7 +692,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 16.
 (c:/Program Files (x86)/texlive/2012/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for T1+aett on input line 32.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 29.
 
 (c:/Program Files (x86)/texlive/2012/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
@@ -700,41 +700,48 @@ File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 [1
 
 {c:/Program Files (x86)/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.m
-ap}] <Final-004.pdf, id=12, 433.62pt x 433.62pt>
+ap}] <Final-004.pdf, id=13, 433.62pt x 433.62pt>
 File: Final-004.pdf Graphic file (type pdf)
  <use Final-004.pdf>
-Package pdftex.def Info: Final-004.pdf used on input line 57.
+Package pdftex.def Info: Final-004.pdf used on input line 81.
 (pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
- [2 <./Final-004.pdf>] [3] [4] <Final-006.pdf, id=35, 433.62pt x 433.62pt>
+ [2]
+[3 <./Final-004.pdf>] [4] <Final-006.pdf, id=34, 433.62pt x 433.62pt>
 File: Final-006.pdf Graphic file (type pdf)
 
 <use Final-006.pdf>
-Package pdftex.def Info: Final-006.pdf used on input line 170.
+Package pdftex.def Info: Final-006.pdf used on input line 145.
 (pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
- [5 <./Final-006.pdf>]
-<Final-007.pdf, id=45, 433.62pt x 433.62pt>
+ <Final-007.pdf, id=35, 433.62pt x 433.62pt>
 File: Final-007.pdf Graphic file (type pdf)
- <use Final-007.pdf>
-Package pdftex.def Info: Final-007.pdf used on input line 190.
+
+<use Final-007.pdf>
+Package pdftex.def Info: Final-007.pdf used on input line 165.
 (pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
- [6 <./Final-007.pdf>] <Final-009.pdf, id=55, 433.62pt x 433.62pt>
-File: Final-009.pdf Graphic file (type pdf)
- <use Final-009.pdf>
-Package pdftex.def Info: Final-009.pdf used on input line 234.
+ [5 <./Final-006.pdf>] [6 <./Final-007.pdf>] [7]
+<Final-011.pdf, id=59, 433.62pt x 433.62pt>
+File: Final-011.pdf Graphic file (type pdf)
+ <use Final-011.pdf>
+Package pdftex.def Info: Final-011.pdf used on input line 250.
 (pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
- [7]
-[8 <./Final-009.pdf>] (./Final.aux
+ [8 <./Final-011.pdf>] <Final-013.pdf, id=69, 433.62pt x 433.62pt>
+File: Final-013.pdf Graphic file (type pdf)
+ <use Final-013.pdf>
+Package pdftex.def Info: Final-013.pdf used on input line 305.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+ [9]
+[10 <./Final-013.pdf>] [11] [12] (./Final.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 4651 strings out of 494951
- 62912 string characters out of 3177045
- 115434 words of memory out of 3000000
- 7697 multiletter control sequences out of 15000+200000
+ 4658 strings out of 494951
+ 63297 string characters out of 3177045
+ 116471 words of memory out of 3000000
+ 7703 multiletter control sequences out of 15000+200000
  32811 words of font info for 80 fonts, out of 3000000 for 9000
  62 hyphenation exceptions out of 8191
- 37i,6n,27p,786b,274s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,7n,27p,700b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
 <c:/Program Files (x86)/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb><c:/Program Files (x86)/texlive/2012/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmbx12.pfb><c:/Program Files (x86)/texlive/2012/texmf-dist/fonts/
@@ -750,10 +757,10 @@ fonts/cm/cmsy10.pfb><c:/Program Files (x86)/texlive/2012/texmf-dist/fonts/type1
 onts/type1/public/amsfonts/cm/cmti10.pfb><c:/Program Files (x86)/texlive/2012/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Program Files (x86)/tex
 live/2012/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Final.pdf (8 pages, 627096 bytes).
+Output written on Final.pdf (12 pages, 1087625 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 130 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 30 words of extra memory for PDF output out of 10000 (max. 10000000)
 
