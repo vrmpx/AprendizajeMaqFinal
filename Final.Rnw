@@ -1,29 +1,64 @@
-\documentclass{article}
+\documentclass[a4paper, 10pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, es-tabla]{babel}
 \usepackage{amsmath,amsfonts,amssymb,amsthm,float,bbm}
 \usepackage{graphicx}
-
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
 \author{Jorge Carlos Urteaga \and Víctor R. Martinez}
 \title{Aprendizaje de Máquina \\ Projecto Final}
 \date{\today}
 \decimalpoint
-
+    
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
 \maketitle
 
 \section{Introducción}
-???
+Se estima que cada año mueren cerca de 250,000 personas a causa de una picadura de alacrán \cite{Chippaux}. De las 1500 especies de alacranes, las más peligrosas se encuentran en zonas altamente endémicas como, por ejemplo: México, Sudamérica, África, Medio Oriente, y la India. Tan sólo en México se pueden encontrar 200 especies de alacranes de las cuales el \emph{Centuroides noxius} (Durango y Nayarit) y el \emph{Centuroides limpidus limpidus} (Jalisco, Guerrero y Michoacán) son letales para un ser humano. El número de casos de picadura de alacrán registrados en el país alcanza los 280,000 al año, con un número de muertes promedio cercano a 70 en los últimos años \cite{epidemiologia}. El identificar un alacrán como peligroso, utilizando información extraída de sus características morfológicas, podría disminuir el número de muertes en el mundo. \\
+
+\subsection{Morfología de un alacrán}
+
+\begin{figure}[tb]
+  \begin{center}
+    \includegraphics[width=9cm]{s4.png}
+  \end{center}
+  \caption{Partes del cuerpo de un alacrán}
+  \label{fig:cuerpo}
+\end{figure}
+
+Por sus características morfológicas, podemos dividir el cuerpo de un alacrán en 3 partes: la parte frontal (\emph{cephalothorax}); el abdomen (\emph{ophistosoma}), y la cola (\emph{metosoma}). El \emph{cephalothorax}, también llamado \emph{prosoma}, comprende los ojos, quelicerido, pedipalpos, quelas y cuatro pares de patas. El \emph{ophistosoma} o mesosoma consiste en los 7 segmentos que comprenden el dorso y el vientre. La \emph{metosoma} comprende los últimos 6 segmentos, los primeros cinco corresponden a las quillas dorsales y en el ultimo segmento se encuentra el telson y el aguijón. La figura \ref{fig:cuerpo} muestra a detalle cada una de las partes.
+
+\subsection{Objetivo}
+En este trabajo investigamos diferentes métodos para clasificar un alacrán como peligroso o no peligroso utilizando fotografías de los arácnidos. Planteamos un algoritmo para procesar la imagen y obtener 140 variables que nos permitan distinguir si el arácnido es venenoso o no.
 
 \section{Datos}
-???
+
+\begin{figure}[tb]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=3cm]{s1.png}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=3cm]{s2.png}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=3cm]{s3.png}
+  \end{subfigure}%
+  \caption{Ejemplos de las fotografías utilizadas}
+  \label{fig:Alacranes}
+\end{figure}
+
+Los datos fueron obtenidas por 218 fotografías tomadas a alacranes vivos de las especies \emph{C. Limpydus}, \emph{C. Noxius} y \emph{Dejovies}  en un ambiente controlado que consistió en la cámara de un dispositivo móvil, un refractario y etiquetas adherentes para sostener al alacrán. La cámara utilizada tenía 8 MP ($3264 \times 2448$) píxeles con una apertura (f/2,4) y auto-enfoque. Se usa un recipiente redondo para mantener al alacrán al centro, y el adhesivo permite que el alacrán conserve posición fija con un fondo liso (ver figura \ref{fig:Alacranes}). Para obtener las variables a analizar, cada fotografía pasó por un pre-procesamiento para retirar todo el ruido y detectar al alacrán. Después, se realizó un análisis sobre la forma del arácnido, y se almacenó las propiedades principales. Este proceso resultó en una muestra de 218 observaciones sobre un espacio de 140 variables.
+
+\subsection{Procesamiento de la imagen}
+Se analizaron las capas de RGB a través del histograma de color para determinar la capa y los intervalos donde se encuentra el alacrán. Terminando este proceso, se erosiona y se dilata la imagen para retirar el ruido del fondo. Para detectar cada una de las zonas del cuerpo, se revisa el cambio en el área a partir de la ubicación del centro de masa. El análisis morfológico se realiza a partir de los 7 momentos invariantes de Hu \cite{Hu}. Esto da lugar a 140 valores representando las características principales de cada individuo.
 
 \section{Procesamiento de los datos}
+Los datos se importan a \textbf{R}, donde son escalados y reducidos para eliminar efectos nocivos de las unidades. Separamos los datos en 5 subgrupos para realizar validaciones cruzadas. Para observar el comportamiento de nuestros modelos, reducimos la dimensionalidad del problema a sus dos primeros componentes principales, los cuales acumulan más del 70\% de la varianza.
 
-\subsection{Inicialización}
-El siguiente código importa las librerías a utilizar, lee los datos del archivo de datos y genera los indices para la validación cruzada de 5 iteraciones (\emph{k-folds cross validation})
 <<>>=
 library(ggplot2)
 library(e1071)
@@ -48,26 +83,19 @@ kfolds <- split(obs, ceiling(seq_along(obs)/max))
 #Cuadricula para dibujar las componentes
 dat.x <- expand.grid(Comp.1 = seq(-30,30,0.5),
                      Comp.2 = seq(-20,20,0.5))
-@
 
-En primer lugar los datos fueron escalados y centrados a media $0$ y varianza $1$ para eliminar el ruido producto de utilizar diferentes unidades entre las variables y para reducir la dimensión del espacio de variables utilizando PCA.
-
-<<>>=
 #Escalamos las variables a mu = 0, sigma = 1
 alacranes.scaled <- data.frame(scale(alacranes[,-141]),
                                tipo = alacranes$tipo)
-@
 
-A continuación, reducimos la dimensionalidad del problema utilizando un Análisis de Componentes Principales. Encontramos que con sólo 40 factores eramos capaces de capturar el 97.397\% de la varianza de los datos.
-
-<<>>=
 pca <- princomp(~., data=alacranes.scaled[, -141],
                 cor = TRUE, na.action=na.exclude)
 datos.red <- data.frame(pca$scores[,1:40],
                         tipo = alacranes.scaled$tipo)
 @
 
-A partir de los componentes más importantes, podemos representar nuestro problema en dos dimensiones para una mejor interpretación de los datos y una primera aproximación al procedimiento que tendremos que utilizar. Como podemos ver en la siguiente figura, los alacranes no venenosos se encuentran agrupados en el centro de los datos rodeados por alacranes venenosos. Es claro que un modelo lineal sería incapaz de separar de manera adecuada los datos, necesitamos un modelo capaz de generar áreas de clasificación circulares.
+Como podemos ver en la figura \ref{fig:comp2}, los alacranes no venenosos se encuentran agrupados en el centro de los datos rodeados por alacranes venenosos. Es claro que un modelo lineal sería incapaz de separar de manera adecuada los datos, necesitamos un modelo capaz de generar áreas de clasificación circulares.
+
 <<fig=TRUE>>=
 ggplot(aes(x = Comp.1, y = Comp.2, color = tipo),
        data = datos.red) + geom_point() + xlim(-30, 30) + ylim(-20, 20)
@@ -314,5 +342,23 @@ Utilizando un análisis de sesgo y varianza encontramos que ambos modelos se pod
 Para distinguir los modelos consideremos un ejemplo. Tenemos un alacrán del cual no sabemos si es venenoso o no. Supongamos que se lo presentamos a nuestro modelo y este asegura que no es peligroso. Si en realidad el arácnido era venenoso, nuestro modelo habrá puesto en riesgo nuestra salud. En cambio, si el modelo dice que es venenoso pero en realidad no lo era, no pasa de que nos preocupemos un poco y que nos toque una inyección que no correspondía. El primer error se conoce como el error tipo II y al segundo como tipo I.
 
 De esta manera, queremos elegir el modelo que minimice el error tipo II. Para el tamaño de muestra obtenido hasta el momento, el modelo con menor tasa de error del tipo II es el SVM ya que no asigna ningún alacrán venenoso a la categoría de no peligrosos mientras que el bosque aleatorio tiene 3 fallas. Estos resultados resultan muy débiles y faltaría volver a medir con una muestra más grande.
+
+\begin{thebibliography}{9}
+
+\bibitem{Chippaux}
+  Chippaux, J.P., Goyffon, M.
+  \emph{Epidemiology of scorpionism: a global appraisal}.
+  Acta Tropica 107, 2, pp. 71–9, 2010
+  
+\bibitem{epidemiologia}
+  Dirección General de Epidemeología de la Secretaría de Salud.
+  \url{http://www.epidemiologia.salud.gob.mx/}
+  
+\bibitem{Hu}
+  Hu, M.K.
+  \emph{Visual Pattern Recognition by Moment Invariants}.
+  IRE, Transactions on Information Theory,pp. 179 - 187, 1962
+  
+\end{thebibliography}
 
 \end{document}
